@@ -232,6 +232,7 @@ console.log('\n--- Assignment 6 ---------------------------------------')
 console.log('Min gourmetsallad har id: ' + myGourmetSalad.id);
 console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
 
+export default Salad; 
 
 /**
  * Reflection question 4
