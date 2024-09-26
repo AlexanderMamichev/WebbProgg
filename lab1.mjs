@@ -9,6 +9,9 @@
  */
 
 import inventory from './inventory.mjs';
+import { v4 as uuidv4 } from 'uuid';
+const uuid = uuidv4(); // use this in the constructor 
+
 console.log('\n=== beginning of printout ================================')
 console.log('inventory:', inventory);
 
@@ -51,10 +54,17 @@ console.log(makeOptions(inventory, 'foundation'));
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
 
+  static instanceCounter = 1; // Static egenskap som delas av alla instanser och kommer att uppdateras varje gång det skapas en Salad instans
+
+
   constructor(existingSalad = null){ //Initialisera ett tomt objekt för att lagra ingredienser. 
+
+    this.id = 'salad_' + Salad.instanceCounter++; //Tilldelar ett unikt ID till varje instans.  
+    this.uuid = uuidv4(); // Genererar ett unikt uuID. 
 
     if(existingSalad && existingSalad instanceof Salad) {
     this.ingredients = {...existingSalad.ingredients}; 
+    this.uuid = existingSalad.uuid; // Sparar den redan befintliga UUID för parsing. 
     }else{
     this.ingredients={}; 
     }
@@ -83,6 +93,7 @@ class Salad {
      // Function to create a Salad from an object
     function createSaladFromObject(obj){
       const salad = new Salad(); 
+      salad.uuid = obj.uuid; //Behåller den gamla UUID. 
       for(const [name, properties] of Object.entries(obj)){
         salad.add(name, properties);
       }
@@ -125,7 +136,7 @@ Salad.prototype.count = function(property) {
   .filter(ingredient => ingredient[property])
   .length;
 };
-//EN fråga finns det några som helst metoder i prototype från början eller är det ett helt tomt objekt från början? 
+ 
 
 console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
 // En ceasarsallad kostar 45kr
@@ -176,7 +187,35 @@ console.log('originalet kostar ' + myCaesarSalad.getPrice() + ' kr');
 console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
 
 console.log('\n--- Assignment 5 ---------------------------------------')
-/*
+
+class GourmetSalad extends Salad {
+  
+  add(name, properties, size = 1) {
+    // Om ingrediensen redan finns i salladen, hämta den befintliga storleken
+    let newSize = size;
+    if (this.ingredients[name]) {
+      const currentSize = this.ingredients[name].size;
+      newSize += currentSize;  // Uppdatera storleken om ingrediensen redan finns
+    }
+
+    // Skapa en ny kopia av properties och lägg till storleken
+    const propertiesWithSize = { ...properties, size: newSize };
+
+    // Anropa superklassens add-metod med de uppdaterade properties
+    return super.add(name, propertiesWithSize);
+  }
+
+  getPrice() {
+    // Beräkna totalpriset baserat på pris * storlek för varje ingrediens
+    return Object.values(this.ingredients)
+      .reduce((total, ingredient) => {
+        return total + (ingredient.price * ingredient.size);  // Korrekt referens till ingredient.price
+      }, 0);
+  }
+}
+
+
+
 let myGourmetSalad = new GourmetSalad()
   .add('Sallad', inventory['Sallad'], 0.5)
   .add('Kycklingfilé', inventory['Kycklingfilé'], 2)
@@ -187,19 +226,33 @@ let myGourmetSalad = new GourmetSalad()
 console.log('Min gourmetsallad med lite bacon kostar ' + myGourmetSalad.getPrice() + ' kr');
 myGourmetSalad.add('Bacon', inventory['Bacon'], 1)
 console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
-*/
+
 console.log('\n--- Assignment 6 ---------------------------------------')
-/*
+
 console.log('Min gourmetsallad har id: ' + myGourmetSalad.id);
 console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
-*/
+
 
 /**
  * Reflection question 4
+ * !ANSWER!
+ * Static properties are stored within super class immidietly and not in the following instances. This means that 
+ * static property instanceCounter is accosieated with Class Salad. 
+ * !ANSWER!
  */
 /**
  * Reflection question 5
+ * !ANSWER!
+ * Yes it is possible. It is achivied by using Object.defineProperty to define property with specific attributes like making it 
+ * non writable. 
+ * !ANSWER!
  */
 /**
  * Reflection question 6
+ * !ANSWER!
+ * Yes it is possible. To create a private property we can use private fields in classes. Private fields are prefixed with "#". 
+ * They are only accessable within the class they are defined in. 
+ * 
+ * !ANSWER!
  */
+
