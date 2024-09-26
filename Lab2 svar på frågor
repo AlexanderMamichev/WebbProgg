@@ -1,0 +1,22 @@
+Reflection question 1: A pure function is one that always returns the same output given the same inputs and does not cause any side effects. 
+If the render function depends on external data (like global variables or data fetched from an API), it can lead to unpredictable behavior.
+
+This impurity can lead to unnecessary re-renders or inconsistent UI states because the component might render with outdated or incorrect values.
+
+Reflection question 2: 
+Caching with "useMemo":
+
+You can utilize the useMemo hook to cache the foundations. This will prevent the recalculation of the foundations array on every render unless the props.inventory changes.
+Example of how it would be implemented: import { useMemo } from 'react';
+
+const foundationList = useMemo(() => {
+  return Object.keys(props.inventory).filter(name => props.inventory[name].foundation);
+}, [props.inventory]);
+
+Caching the foundations array can improve performance especially if the inventory object is large or complex. Since the inventory changes infrequently recalculating the foundations on every render might be unnecessary.
+
+
+
+
+
+
