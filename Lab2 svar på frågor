@@ -22,6 +22,25 @@ It simplifies form submission by having all the state in one place.
 It avoids unnecessary prop-drilling or complex state-lifting.
 It aligns with React's best practice of having a single source of truth for state.
 
+Reflection question 4:
+State Change: When the state of a component is updated using setState, React schedules a re-render of that component. The render function is called again, and the virtual DOM is updated accordingly.
+Props Change: If the props passed to a component change, the render function for that component is called again to reflect the new props.
+
+Reflection question 5:
+No, changing the HTML form state (like selecting an option in a dropdown or checking a checkbox) does not automatically change the state of the component in React. 
+Instead you must set up event handlers (e.g., onChange) to listen for user interactions.
+When an event occurs, the handler updates the component's state using functions like setState. This approach ensures that React's state remains the single source of truth for the component's data.
+
+
+
+Reflection question 6:
+
+
+
+
+
+
+
 
 
 
