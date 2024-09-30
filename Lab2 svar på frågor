@@ -15,7 +15,12 @@ const foundationList = useMemo(() => {
 
 Caching the foundations array can improve performance especially if the inventory object is large or complex. Since the inventory changes infrequently recalculating the foundations on every render might be unnecessary.
 
+Reflection question 3: 
+No you should not move the foundation state to the Select component. Keeping the foundation state in ComposeSalad is a better approach because:
 
+It simplifies form submission by having all the state in one place.
+It avoids unnecessary prop-drilling or complex state-lifting.
+It aligns with React's best practice of having a single source of truth for state.
 
 
 
