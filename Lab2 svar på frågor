@@ -23,7 +23,7 @@ It avoids unnecessary prop-drilling or complex state-lifting.
 It aligns with React's best practice of having a single source of truth for state.
 
 Reflection question 4:
-State Change: When the state of a component is updated using setState, React schedules a re-render of that component. The render function is called again, and the virtual DOM is updated accordingly.
+State Change: When the state of a component is updated using setState React schedules a re-render of that component. The render function is called again, and the virtual DOM is updated accordingly.
 Props Change: If the props passed to a component change, the render function for that component is called again to reflect the new props.
 
 Reflection question 5:
@@ -35,7 +35,7 @@ When an event occurs, the handler updates the component's state using functions 
 
 Reflection question 6:
 
-
+React doesnt bind this 
 
 
 
